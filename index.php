@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gastenboek</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <!-- Voeg FontAwesome CSS toe voor de pictogrammen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,7 +24,6 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: relative;
-            /* Toegevoegd */
         }
 
         h1 {
@@ -53,57 +54,108 @@
             resize: vertical;
         }
 
+        /* Bijgewerkte CSS voor de knoppen */
         .btn {
-            background-color: #FAB713;
+            background-color: transparent;
             color: #1D1D1D;
             padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
+            border: 1px solid transparent;
+            border-radius: 50px;
             cursor: pointer;
             font-size: 16px;
             font-family: cursive;
             font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
         }
 
         .btn:hover {
-            background-color: #45a049;
+            background-color: #ccc;
+            border-color: #ccc;
         }
 
-        .comments {
-            margin-top: 30px;
-        }
-
-        .comment {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-
-        /* Popup melding */
-        .popup-message {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #FAB713;
-            color: #1D1D1D;
+        .btn2 {
+            background-color: rgb(29, 155, 240);
+            color: white;
             padding: 10px 20px;
-            border-radius: 5px;
-            animation: slideIn 0.5s ease forwards;
+            border: 1px solid transparent;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn2:hover {
+            background-color: #1d86f0;
+            border-color: #1d86f0;
+        }
+
+        .navigation {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .navigation a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #1D1D1D;
+            font-weight: bold;
+            font-size: 16px;
+            display: inline-block;
+            border-radius: 4px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigation a:hover {
+            background-color: #ccc;
+            border-radius: 50px;
+        }
+
+        .navigation a .icon {
+            margin-right: 5px;
+        }
+
+        /* Aangepaste stijl voor het succesbericht */
+        .success-message {
+            text-align: center;
+            color: #FAB713;
+            position: absolute;
+            bottom: 20px;
+            /* Van onder naar boven */
+            right: 20px;
+            /* Van rechts naar links */
             opacity: 0;
+            animation: showNotification 4s ease forwards;
             z-index: 999;
         }
 
-        @keyframes slideIn {
-            from {
-                bottom: -100px;
+        /* Aangepaste animatie */
+        @keyframes showNotification {
+            0% {
+                transform: translateX(100%);
                 opacity: 0;
             }
 
-            to {
-                bottom: 20px;
+            10% {
+                transform: translateX(0);
                 opacity: 1;
+            }
+
+            90% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
             }
         }
     </style>
@@ -112,9 +164,13 @@
 <body>
 
     <div class="container">
+        <div class="navigation">
+            <a href="frontpage.php" class="btn"><i class="fas fa-home icon"></i> Home</a>
+            <a href="berichtenPagina.php" class="btn"><i class="fas fa-envelope icon"></i> Berichten</a>
+        </div>
         <h1>Gastenboek</h1>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="commentForm">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="form-group">
                 <label for="fname">Voornaam:</label>
                 <input type="text" id="fname" name="fname" required>
@@ -130,25 +186,27 @@
                 <textarea name="comment" id="comment" rows="4" required></textarea>
             </div>
 
-            <input type="submit" value="Plaats reactie" class="btn">
+            <input type="submit" value="Plaats reactie" class="btn2">
         </form>
+
+        <!-- Het succesbericht tonen -->
+        <div class="success-message" id="successMessage">
+            Het bericht is succesvol verzonden
+        </div>
 
         <hr>
     </div>
 
-    <div class="popup-message" id="popupMessage">
-        Het bericht is succesvol verzonden
-    </div>
-
     <script>
-        // JavaScript om de popup-melding weer te geven na het indienen van het formulier
-        document.getElementById('commentForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Voorkom standaardformulierindiening
-            var popupMessage = document.getElementById('popupMessage');
-            popupMessage.style.opacity = '1';
+        // JavaScript om de melding na een bepaalde tijd te laten verdwijnen
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var successMessage = document.getElementById('successMessage');
             setTimeout(function () {
-                popupMessage.style.opacity = '0';
-            }, 4000); // 4 seconden (duur van de animatie)
+                successMessage.style.opacity = '1';
+            }, 0); // Start direct na het indienen van het formulier
+            setTimeout(function () {
+                successMessage.style.opacity = '0';
+            }, 4000); // 4 seconden (dezelfde duur als de animatie)
         });
     </script>
 
