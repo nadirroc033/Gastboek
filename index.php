@@ -21,6 +21,8 @@
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            /* Toegevoegd */
         }
 
         h1 {
@@ -52,13 +54,15 @@
         }
 
         .btn {
-            background-color: #4caf50;
-            color: #fff;
+            background-color: #FAB713;
+            color: #1D1D1D;
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            font-family: cursive;
+            font-weight: bold;
         }
 
         .btn:hover {
@@ -76,6 +80,32 @@
             border-radius: 4px;
             background-color: #f9f9f9;
         }
+
+        /* Popup melding */
+        .popup-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FAB713;
+            color: #1D1D1D;
+            padding: 10px 20px;
+            border-radius: 5px;
+            animation: slideIn 0.5s ease forwards;
+            opacity: 0;
+            z-index: 999;
+        }
+
+        @keyframes slideIn {
+            from {
+                bottom: -100px;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 20px;
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -84,26 +114,7 @@
     <div class="container">
         <h1>Gastenboek</h1>
 
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $fname = $_POST['fname'];
-            $lname = $_POST['lname'];
-            $comment = $_POST['comment'];
-
-            $datetime = date('d-m-Y H:i');
-
-            $file = fopen("comment.html", "a");
-            fwrite($file, "<div class='comment'>");
-            fwrite($file, "<b>Voornaam:</b> $fname<br>");
-            fwrite($file, "<b>Achternaam:</b> $lname<br>");
-            fwrite($file, "<b>Datum en tijd:</b> $datetime<br>");
-            fwrite($file, "<b>Reactie:</b> $comment<br>");
-            fwrite($file, "</div><hr>");
-            fclose($file);
-        }
-        ?>
-
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="commentForm">
             <div class="form-group">
                 <label for="fname">Voornaam:</label>
                 <input type="text" id="fname" name="fname" required>
@@ -123,11 +134,23 @@
         </form>
 
         <hr>
-
-        <div class="comments">
-            <?php require("comment.html"); ?>
-        </div>
     </div>
+
+    <div class="popup-message" id="popupMessage">
+        Het bericht is succesvol verzonden
+    </div>
+
+    <script>
+        // JavaScript om de popup-melding weer te geven na het indienen van het formulier
+        document.getElementById('commentForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Voorkom standaardformulierindiening
+            var popupMessage = document.getElementById('popupMessage');
+            popupMessage.style.opacity = '1';
+            setTimeout(function () {
+                popupMessage.style.opacity = '0';
+            }, 4000); // 4 seconden (duur van de animatie)
+        });
+    </script>
 
 </body>
 
