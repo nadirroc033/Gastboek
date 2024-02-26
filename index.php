@@ -125,9 +125,9 @@
         /* Aangepaste stijl voor het succesbericht */
         .success-message {
             text-align: center;
-            color: #FAB713;
+            color: rgb(29, 155, 240);
             position: absolute;
-            bottom: 20px;
+            bottom: 35px;
             /* Van onder naar boven */
             right: 20px;
             /* Van rechts naar links */
@@ -170,7 +170,8 @@
         </div>
         <h1>Gastenboek</h1>
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <form action="upload.php" method="POST">
+
             <div class="form-group">
                 <label for="fname">Voornaam:</label>
                 <input type="text" id="fname" name="fname" required>
