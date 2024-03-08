@@ -1,0 +1,119 @@
+body {
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f5f8fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.tweet {
+    border: 1px solid #ccd6dd;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 15px;
+}
+
+.tweet .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    float: left;
+}
+
+.tweet .content {
+    overflow: hidden;
+}
+
+.tweet .name {
+    color: #536471;
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    text-overflow: unset;
+}
+
+.tweet .username {
+    color: rgb(15, 20, 25);
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-left: 6px;
+    float: left;
+    margin-top: 2px;
+    /* Aangepast */
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.tweet .verified-icon {
+    color: #1da1f2;
+    font-size: 14px;
+    margin-right: 2px;
+    vertical-align: middle;
+    margin-top: 2px;
+    /* Aangepast */
+    /* Aangepast */
+}
+
+.tweet .timestamp {
+    color: #8899a6;
+    font-size: 12px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.tweet .text {
+    margin-top: 5px;
+}
+
+.tweet .interaction {
+    color: #5B6B78;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.tweet .interaction i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.tweet .interaction span {
+    margin-right: 20px;
+}
+
+.navigation {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.navigation a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #1D1D1D;
+    font-weight: bold;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.navigation a:hover {
+    background-color: #ccc;
+    color: #1D1D1D;
+    border-color: #ccc;
+}
+
+
+.icon {
+    margin-right: 5px;
+}

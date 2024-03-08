@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Bijgewerkte CSS voor de knoppen */
+.btn {
+    background-color: transparent;
+    color: #1D1D1D;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: cursive;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ccc;
+    border-color: #ccc;
+}
+
+.btn2 {
+    background-color: rgb(29, 155, 240);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn2:hover {
+    background-color: #1d86f0;
+    border-color: #1d86f0;
+}
+
+.navigation {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.navigation a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #1D1D1D;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.navigation a:hover {
+    background-color: #ccc;
+    border-radius: 50px;
+}
+
+.navigation a .icon {
+    margin-right: 5px;
+}
+
+/* Aangepaste stijl voor het succesbericht */
+.success-message {
+    text-align: center;
+    color: rgb(29, 155, 240);
+    position: absolute;
+    bottom: 35px;
+    /* Van onder naar boven */
+    right: 20px;
+    /* Van rechts naar links */
+    opacity: 0;
+    animation: showNotification 4s ease forwards;
+    z-index: 999;
+}
+
+/* Aangepaste animatie */
+@keyframes showNotification {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    10% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    90% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
